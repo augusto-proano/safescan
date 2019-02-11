@@ -1,11 +1,30 @@
-console.log("we hit the server")
+const SerialPort = require('serialport')
+// const ReadLine = require('@serialport/parser-readline')
 
-const usb = require('usb')
+// const port = new SerialPort('ACPI\PNP0501\1').catch
 
-const usbs = usb.findByIds('USB\VID_04B4&PID_8613&REV_0000', 'USB\VID_04B4&PID_8613')
+// console.log("PORT", port)
 
-console.log("USB", usbs)
+// const parser = new ReadLine()
+// port.pipe(parser)
 
+// parser.on('data', line => console.log(`> ${line}`))
+// port.write('ROBOT POWER ON\n')
+// //> ROBOT ONLINE
 
+async function hello () {
+    try {
+        const serialport = await new SerialPort('USBVID_04B4&PID_8613\u0005&2BF451F8&0&1');
+        console.log("SERIALPORT: ", serialport)
+        serialport.write('ROBOT POWER ON')
+    } catch (err) { console.log(err) }
+}
 
-// 04B4  8613
+hello()
+
+// SerialPort.list(function (err, ports) {
+//     ports.forEach(function(port) {
+//         console.log(port)
+//         console.log("------------------------------")
+//     });
+// });
